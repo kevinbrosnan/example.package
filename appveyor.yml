@@ -3,24 +3,61 @@
 # Download script file from GitHub
 init:
   ps: |
+        Get-Date
         $ErrorActionPreference = "Stop"
-        Invoke-WebRequest http://raw.github.com/krlmlr/r-appveyor/master/scripts/appveyor-tool.ps1 -OutFile "..\appveyor-tool.ps1"
-        Import-Module '..\appveyor-tool.ps1'
 
 install:
-  ps: Bootstrap
-
-cache:
-  - C:\RLibrary
-
-environment:
-  NOT_CRAN: true
-  # env vars that may need to be set, at least temporarily, from time to time
-  # see https://github.com/krlmlr/r-appveyor#readme for details
-  # USE_RTOOLS: true
-  # R_REMOTES_STANDALONE: true
+  ps: |
+        Import-Module '.\scripts\appveyor-tool.ps1'
+        Bootstrap
 
 # Adapt as necessary starting from here
+
+environment:
+  global:
+    WARNINGS_ARE_ERRORS: 1
+
+  matrix:
+  - R_VERSION: devel
+    GCC_PATH: mingw_32
+
+  - R_VERSION: devel
+    R_ARCH: x64
+    GCC_PATH: mingw_64
+
+  - R_VERSION: release
+    R_ARCH: x64
+
+  - R_VERSION: stable
+
+  - R_VERSION: patched
+
+  - R_VERSION: 3.5.3
+    RTOOLS_VERSION: 35
+
+  - R_VERSION: 3.4.4
+    RTOOLS_VERSION: 34
+
+  - R_VERSION: 3.3.3
+    RTOOLS_VERSION: 33
+
+  - R_VERSION: 3.2.5
+    RTOOLS_VERSION: 33
+
+  - R_VERSION: 3.2.3
+    _R_CHECK_FORCE_SUGGESTS_: false
+    PKGTYPE: source
+    RTOOLS_VERSION: 33
+    DOWNLOAD_FILE_METHOD: wininet
+
+  - R_VERSION: 3.2.0
+    _R_CHECK_FORCE_SUGGESTS_: false
+    PKGTYPE: source
+    RTOOLS_VERSION: 32
+    DOWNLOAD_FILE_METHOD: wininet
+
+matrix:
+  fast_finish: true
 
 build_script:
   - travis-tool.sh install_deps
@@ -50,3 +87,11 @@ artifacts:
 
   - path: '\*_*.zip'
     name: Bits
+
+notifications:
+ - provider: Email
+   to:
+     - kevin.c.brosnan@gmail.com
+   on_build_success: true
+   on_build_failure: true
+   on_build_status_changed: true

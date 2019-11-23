@@ -2,9 +2,46 @@
 
 language: R
 cache: packages
+dist: trusty
 
 # Code for building on Linux & Mac with multiple R versions
+jobs:
+  include:
+  - os: linux
+    r: devel
+    env: _R_CHECK_SYSTEM_CLOCK_=false
+  - os: linux
+    r: release
+    env: R_CODECOV=true
+  - os: linux
+    r: 3.5
+  - os: linux
+    r: 3.4
+  - os: linux
+    r: 3.3
+  - os: linux
+    r: 3.2
+  - os: osx
+    r: devel
+    env: _R_CHECK_SYSTEM_CLOCK_=false
+  - os: osx
+    r: release
+  - os: osx
+    r: 3.5
+  - os: osx
+    r: 3.4
+  - os: osx
+    r: 3.3
+  - os: osx
+    r: 3.2
 
+# environment variables set for all builds
+env:
+  global:
+  # don't treat missing suggested packages as error
+  - _R_CHECK_FORCE_SUGGESTS_=false
+  # switch off vdiffr by default
+  - VDIFFR_RUN_TESTS=false
 
 # Code for Deploying Package Site using pkgdown
 before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
@@ -15,4 +52,4 @@ deploy:
 
 # Code to run Code Coverage post builds
 after_success:
-  - Rscript -e 'covr::codecov()'
+  - if [[ "${R_CODECOV}" ]]; then R -e 'covr::codecov()'; fi
