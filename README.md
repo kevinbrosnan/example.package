@@ -2,7 +2,7 @@
 # example.package
 
 <!-- badges: start -->
-[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/significantstats/example-package?branch=master&svg=true)](https://ci.appveyor.com/project/significantstats/example-package)
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/significantstats/example.package?branch=master&svg=true)](https://ci.appveyor.com/project/significantstats/example-package)
 [![Travis build status](https://travis-ci.com/significantstats/example.package.svg?branch=master)](https://travis-ci.com/significantstats/example.package)
 [![Codecov test coverage](https://codecov.io/gh/significantstats/example.package/branch/master/graph/badge.svg)](https://codecov.io/gh/significantstats/example.package?branch=master)
 <!-- badges: end -->
