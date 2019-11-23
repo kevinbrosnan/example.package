@@ -14,5 +14,6 @@ LazyData: true
 URL: https://github.com/significantstats/example.package
 BugReports: https://github.com/significantstats/example.package/issues
 Suggests: 
-    testthat,
+    testthat (>= 2.1.0),
     covr
+RoxygenNote: 7.0.0
