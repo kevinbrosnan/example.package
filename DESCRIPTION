@@ -13,3 +13,6 @@ Encoding: UTF-8
 LazyData: true
 URL: https://github.com/significantstats/example.package
 BugReports: https://github.com/significantstats/example.package/issues
+Suggests: 
+    testthat,
+    covr
