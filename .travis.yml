@@ -44,11 +44,11 @@ env:
   - VDIFFR_RUN_TESTS=false
 
 # Code for Deploying Package Site using pkgdown
-#before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
-#deploy:
-#  provider: script
-#  script: Rscript -e 'pkgdown::deploy_site_github()'
-#  skip_cleanup: true
+before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
+deploy:
+  provider: script
+  script: Rscript -e 'pkgdown::deploy_site_github()'
+  skip_cleanup: true
 
 # Code to run Code Coverage post builds
 after_success:
